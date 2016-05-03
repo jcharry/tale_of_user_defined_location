@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+	<head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+
+        <title>Tales of a <User Defined Location></title>
+        <link rel="stylesheet" href="http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.css" />
+        <script src='http://cdn.leafletjs.com/leaflet/v0.7.7/leaflet.js'></script>
+        <script src='https://ajax.googleapis.com/ajax/libs/jquery/2.2.2/jquery.min.js'></script>
+
+        <script src='https://code.createjs.com/tweenjs-0.6.2.min.js'></script>
+        <link rel='stylesheet' href='style.css'/>
+
+        <style>
+        </style>
+        
+	</head>
+	<body>
+
+
+        <div class='columnContainer'>
+            <div id='leftColumn' class='column' style='width: 100vw;'>
+                <div id="map"></div>
+            </div>
+        </div>
+
+        <h1 id='pageTitle'>tale of &lt;user_defined_location&gt;</h1>
+        <button id='infoButton'></button>
+
+        <div id='overlay'>
+            <div id='overlayBg'>
+            </div>
+            <div id='poemContainer'>
+                <p id='poemTitle'></p>
+                <pre id='poem'></pre>
+
+                <div id='buttonContainer'>
+                    <button id='savePoem'>save poem</button>
+                    <button id='dismissOverlay'>go back</button>
+                </div>
+            </div>
+            <div class="spinner">
+                <div class="rect1"></div>
+                <div class="rect2"></div>
+                <div class="rect3"></div>
+                <div class="rect4"></div>
+                <div class="rect5"></div>
+            </div>
+            <p id='loadingMessage' class='loadingPara'></p>
+        </div>
+
+        <div id='infopane'>
+            <div id='infopaneBg'></div>
+            <div id='infopaneContainer'>
+                <p>How it works</p>
+                <p>When you click on the map, the location is captured and sent off to be analyzed.  Weather, articles, photos, and general location based data are gathered, converted to text through various means, then arranged into a brief summary of the location.</p>
+                <p style='font-size: 9pt'>Note: due to the nature of collecting this data from the world wide network of tubes, summaries may take a few minutes to generate</p>
+
+                <button id='closeInfopane'>close</button>
+            </div>
+        </div>
+
+        <ul id='nyplPhotos'>
+        </ul>
+        
+
+        <script src='index.js'></script>
+		
+	</body>
+</html>

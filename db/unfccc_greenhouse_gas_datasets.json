@@ -1,0 +1,44 @@
+[
+    {
+        "name": "Nitrous oxide (N2O) Emissions without Land Use, Land-Use Change and Forestry (LULUCF), in Gigagrams (Gg) CO2 equivalent",
+        "topics": [
+            "Greenhouse Gas Inventory Data"
+        ]
+    },
+    {
+        "name": "Sulphur hexafluoride (SF6) Emissions, in Gigagrams (Gg) CO2 equivalent",
+        "topics": [
+            "Greenhouse Gas Inventory Data"
+        ]
+    },
+    {
+        "name": "Methane (CH4) Emissions without Land Use, Land-Use Change and Forestry (LULUCF), in Gigagrams (Gg) CO2 equivalent",
+        "topics": [
+            "Greenhouse Gas Inventory Data"
+        ]
+    },
+    {
+        "name": "Greenhouse Gas (GHGs) Emissions without Land Use, Land-Use Change and Forestry (LULUCF), in Gigagrams (Gg) CO2 equivalent",
+        "topics": [
+            "Greenhouse Gas Inventory Data"
+        ]
+    },
+    {
+        "name": "Hydrofluorocarbons (HFCs) Emissions, in Gigagrams (Gg) CO2 equivalent",
+        "topics": [
+            "Greenhouse Gas Inventory Data"
+        ]
+    },
+    {
+        "name": "Carbon dioxide (CO2) Emissions without Land Use, Land-Use Change and Forestry (LULUCF), in Gigagrams (Gg)",
+        "topics": [
+            "Greenhouse Gas Inventory Data"
+        ]
+    },
+    {
+        "name": "Perfluorocarbons (PFCs) Emissions, in Gigagrams (Gg) CO2 equivalent",
+        "topics": [
+            "Greenhouse Gas Inventory Data"
+        ]
+    }
+]

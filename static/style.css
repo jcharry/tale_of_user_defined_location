@@ -1,0 +1,244 @@
+/*
+ * style.css
+ * Copyright (C) 2016 jamiecharry
+ *
+ * Distributed under terms of the MIT license.
+ */
+
+body {
+    /*background-image: url('background.jpg');*/
+    /*-moz-background-size: cover;*/
+	/*-o-background-size: cover;*/
+	/*-webkit-background-size: cover;    */
+    /*background-size: cover;*/
+	color: black;
+    font-family: Futura;
+    background-color: #FEFDFD;
+}
+#map {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    height: 100vh;
+    width:100vw;
+    margin: 0px;
+    padding: 0px;
+}
+#pageTitle {
+    position: fixed;
+    top: 20px;
+    left: 50px;
+    line-height: 30px;
+    width: 100vw;
+    font-size: 2vw;
+    margin: 0px;
+    padding: 0px;
+    color: #313131;
+}
+#infoButton {
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    width: 30px;
+    height: 30px;
+    background: url('info.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+.columnContainer {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
+}
+.blurred {
+    filter: blur(15px);
+    -webkit-filter: blur(15px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+}
+.column {
+    height: 80vh; 
+}
+#leftColumn {
+    /*width: 100vw;*/
+}
+#rightColumn {
+    /*width: 0vw;*/
+}
+button {
+    height:40px;
+    width: 100px;
+    border: none;
+    background-color: transparent;
+    color: #59D6FF;
+    font-size: 1.5vw;
+}
+#poemContainer {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 100vw;
+    height: 100vh;
+    display: flex;
+    align-items:center;
+    justify-content: center;
+    flex-direction: column;
+}
+#buttonContainer {
+    display: flex;
+    flex-direction: row;
+    width: 30vw;
+    justify-content: space-between;
+}
+#poemTitle {
+    font-size: 14pt;
+    font-family: futura;
+    color: #CECECE;
+}
+#poemTitle span {
+    color: #59D6FF;
+}
+#poem {
+    padding-left: 40px;
+    padding-right: 40px;
+    font-size: 14pt;
+    font-family: futura;
+    color: #CECECE;
+    white-space: pre-wrap;
+}
+@media (max-width: 500px) {
+    #poem {
+        font-size: 11pt;
+    }
+    #buttonContainer {
+        width: 50vw;
+    }
+    button {
+        font-size: 9pt;
+    }
+}
+
+#nyplPhotos {
+    display: flex;
+    flex-direction: row;
+}
+#nyplPhotos img {
+    width: 200px;
+}
+#overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+#overlayBg {
+    position: absolute;
+    top:0;
+    left:0;
+    width: 100vw;
+    height: 100vh;
+    background-color: black;
+    opacity: 0.5;
+}
+.loadingPara {
+    position: absolute;
+    width: 100vw;
+    text-align: center;
+    top: 55vh;
+    color: white;
+    font-size: 14pt;
+}
+
+#infopane {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+}
+#infopaneContainer {
+    display: flex;
+    width: 100vw;
+    height: 100vh;
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+#infopane p {
+    color: #CECECE;
+    font-size: 14pt; 
+    padding-left: 40px;
+    padding-right: 40px;
+}
+#infopaneBg {
+    position: absolute;
+    background-color: black;
+    width: 100vw;
+    height: 100vh;
+    opacity: 0.5;
+}
+#infopane button {
+
+}
+
+
+.spinner {
+  margin: 100px auto;
+  margin-top: 35vh;
+  width: 100vw;
+  height: 40px;
+  text-align: center;
+  font-size: 10px;
+}
+
+.spinner > div {
+  background-color: white;
+  height: 200%;
+  width: 12px;
+  display: inline-block;
+  
+  -webkit-animation: sk-stretchdelay 1.2s infinite ease-in-out;
+  animation: sk-stretchdelay 1.2s infinite ease-in-out;
+}
+
+.spinner .rect2 {
+  -webkit-animation-delay: -1.1s;
+  animation-delay: -1.1s;
+}
+
+.spinner .rect3 {
+  -webkit-animation-delay: -1.0s;
+  animation-delay: -1.0s;
+}
+
+.spinner .rect4 {
+  -webkit-animation-delay: -0.9s;
+  animation-delay: -0.9s;
+}
+
+.spinner .rect5 {
+  -webkit-animation-delay: -0.8s;
+  animation-delay: -0.8s;
+}
+
+@-webkit-keyframes sk-stretchdelay {
+  0%, 40%, 100% { -webkit-transform: scaleY(0.4) }  
+  20% { -webkit-transform: scaleY(1.0) }
+}
+
+@keyframes sk-stretchdelay {
+  0%, 40%, 100% { 
+    transform: scaleY(0.4);
+    -webkit-transform: scaleY(0.4);
+  }  20% { 
+    transform: scaleY(1.0);
+    -webkit-transform: scaleY(1.0);
+  }
+}

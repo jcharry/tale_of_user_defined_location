@@ -1,0 +1,650 @@
+[
+    {
+        "name": "Median Consumer Price Ratio of Selected Generic Medicines",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Distribution of years of life lost by broader causes - injuries",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Number of hospital beds",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Plague Number of Reported Cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Other health service providers density",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Median consumer price ratio of selected generic medicines private",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Children aged <5 with ARI symtoms taken to facility",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "H5N1 influenza - Number of reported cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Total Expenditure on Health as a percentage of Gross Domestic Product",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Social security expenditure on health as a percentage of general government expenditure on health",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Net primary school enrollment ratio",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Prevalence of current tobacco use among adolescent 13-15 years old",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Prevalence of Tuberculosis per 100,000",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Diphtheria - Number of reported cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Antiretroviral therapy coverage among HIV-infected pregnant women for PMTCT",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Civil registration coverage of deaths",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Yellow Fever - Number of Reported Cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Gross national income per capita",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Hib Hib3 immunization coverage among 1-year-olds",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Children aged <5 years with diarrhoea receiving ORT",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Life expectancy at birth",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Population proportion over 60",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Median Availability of Selected Generic Medicines",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Median availability of selected generic medicines private",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Meningitis - Number of Reported Cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Population median age",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Distribution of causes of death among children aged <5 years - neonatal",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Population in thousands",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Nursing and midwifery personnel density",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Neonatal Tetanus - Number of Reported Cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Children Aged <5 Years Underweight for Age",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Adults 15 years or older who are obese",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "deaths_due_to_HIV-AIDS_per_100_000",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Age-standardized mortality rate cause - cardiovascular",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Total Tetanus - Number of Reported Cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Distribution of causes of death among children aged <5 years - injuries",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Distribution of causes of death among children aged <5 years - other",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "External resources for health as a percentage of total health expenditure",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Proportion of population using improved sanitation facilities",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Age-standardized mortality rate cause - injuries",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Distribution of years of life lost by broader causes - noncommunicable",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Distribution of causes of death among children aged <5 years - pneumonia",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Number of physicians",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Cholera - Number of reported cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Leprosy - Number of reported cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Per capita total expenditure on health at average exchange rate",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Hepatitis B HepB3 immunization coverage among 1-year-olds",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Adult 15-60 years mortality rate",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Alcohol consumption amount adults 15 years or older",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Total Fertility Rate",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Children aged 6-59 months who received vitamin A supplementation",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Healthy life expectancy HALE at birth",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Congenital rubella syndrome - Number of reported cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Private prepaid plans as a percentage of private expenditure on health",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Rubella - Number of reported cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Per capita government expenditure on health at average exchange rate",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Deaths Due to Tuberculosis Among HIV-positive People",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Annual population growth rate",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Age-standardized mortality rate cause - cancer",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Number of dentistry personnel",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Prevalence of Condom Use by Adults at Higher Risk Sex 15-49",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Children Aged <5 Years Stunted for Age",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Diphtheria tetanus toxoid and pertussis-DTP3 immunizations covereage among 1-year-olds",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Tuberculosis Detection Rate Under DOTS",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Population proportion under 15 years",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Civil registration coverage of births",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Percentage of population living in urban areas",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Prevalence of HIV Among Adults Aged >=5 Years",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Prevalence of current tobacco use among adults older than 15 years",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Physicians density",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Distribution of causes of death among children aged <5 years - measles",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Measles - Number of reported cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Dentistry personnel density",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Measles MCV immunization coverage among 1-year-olds",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Age-standardized mortality rate cause - noncommunicable",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Low birth weight newborns",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Infants exclusively breastfed for the first 6-months of life",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Tuberculosis - Nnumber of Repored Cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Japanese encephalitis - Number of reported cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Per capita total expenditure on health",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Malaria - Number of reported cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Adult literacy rate",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Births by caesarean section",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Proportion of population using improved drinking-water sources",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Incidence of Tuberculosis per Year",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Mumps - Number of Reported Cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Deaths Due To Tuberculosis Among HIV-negative People",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Neonates Protected at Birth Against Neonatal Tetanus",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Percentage of population living on less than $1 a day",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Antenatal care coverage at least one visit",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Community health workers density",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Number of community health workers",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Number of nursing and midwifery personnel",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Distribution of causes of death among children aged <5 years - malaria",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Private expenditure on health as a percentage of total expenditure on health",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Distribution of causes of death among children aged <5 years - diarrhoea",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "General government expenditure on health as a percentage of total government expenditure",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "General government expenditure on health as a percentage of total expenditure on health",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "distributions_of_causes_of_death_among_children_aged_<5_years_HIV-AIDS_percent",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Neonatal Mortality Rate per 1000 Live Births",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Children aged <5 overweight for age",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Antenatal care coverage at least four visits",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Pertussis - Number of reported cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Poliomyelitis - Number of reported cases",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Distribution of years of life lost by broader causes - communicable",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Number of other health service providers",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Out-of-Pocket expenditure as a percentage of private expenditure on health",
+        "topics": [
+            "WHO Data"
+        ]
+    },
+    {
+        "name": "Per capita government expenditure on health",
+        "topics": [
+            "WHO Data"
+        ]
+    }
+]
