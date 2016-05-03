@@ -5,3 +5,7 @@ img/
 creds/
 venv/
 *.sock
+*.pyc
+lib/*.pyc
+*.log
+
