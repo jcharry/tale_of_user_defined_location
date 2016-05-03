@@ -78,6 +78,7 @@ class Api_Requests(object):
     # Send photo file to cloud vision for analysis
     def _cloudVision(self, photo_file):
         '''Run a label request on a single image'''
+	print 'calling cloud vision'
 
         API_DISCOVERY_FILE = 'https://vision.googleapis.com/$discovery/rest?version=v1'
         http = httplib2.Http()
@@ -224,8 +225,11 @@ class Api_Requests(object):
                 # If we dont' already have an entry for it...
                 for imgUrl in item['imageLinks']['imageLink']:                  # Each item has links to various resolution images, loop through these links
                     if imgUrl.find('t=w') != -1:                                # Get image with resolution 'w' - points to 760px resolution
+			print 'finding image'
                         urllib.urlretrieve(imgUrl, 'img/' + item['uuid'] + '.jpg')  # retrieve and save image by UUID
+			print 'got image'
                         analysis = self._cloudVision('img/' + item['uuid'] + '.jpg')  # Send the saved image to cloudVision
+			
 
                         # No guarentee to have any data back, have to check for nil values
                         try:
@@ -252,6 +256,7 @@ class Api_Requests(object):
                         # Add it to return object
                         nypl_results[item['uuid']] = photoAnalysis
         # Close the shelf connection
+	print 'done'
         shelf.close()
         self.results['photos'] = nypl_results
     

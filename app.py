@@ -17,11 +17,12 @@ sys.path.append('./lib')
 import requests
 import json
 import random
-from api_requests import Api_Requests
 from pprint import pprint
 
 from flask import Flask, url_for, render_template, request
-app = Flask((__name__), static_url_path='')
+application = Flask((__name__), static_url_path='')
+
+from api_requests import Api_Requests
 
 # import dataset
 
@@ -33,18 +34,19 @@ app = Flask((__name__), static_url_path='')
 
 # john = table.find_one(name='John Doe')
 
-@app.route('/')
+@application.route('/')
 def hello():
     return render_template('index.html')
 
-@app.route('/save', methods=['POST'])
+@application.route('/save', methods=['POST'])
 def save():
     print request.json['title']
     print request.json['poem']
     return json.dumps(200)
 
-@app.route('/location', methods=['GET'])
+@application.route('/location', methods=['GET'])
 def location():
+    print 'hit location path'
     results = {}
     for item in request.args:
         results[item] = request.args.get(item)
@@ -94,4 +96,4 @@ What kind of data should I try to gather about a place?
 
 
 if __name__ == "__main__":
-    app.run(debug=True)
+    application.run(host='0.0.0.0', debug=True)
