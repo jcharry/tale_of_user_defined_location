@@ -57,6 +57,7 @@
         var url = res.replace( new RegExp("\"", 'g'), '');
         console.log(url);
         document.getElementById('poemUrl').innerHTML = url;
+        document.getElementById('poemUrl').setAttribute('href', url);
         document.getElementById('poemContainer').classList.add('blurred');
         document.getElementById('saveOverlay').style.display = 'flex';
     }

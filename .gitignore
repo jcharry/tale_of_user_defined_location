@@ -8,4 +8,5 @@ venv/
 *.pyc
 lib/*.pyc
 *.log
-
+*.db
+db/*.db
