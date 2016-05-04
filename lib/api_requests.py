@@ -20,10 +20,6 @@ import httplib2
 import urllib   # Use to download and save photos when I know the photo url
 import wikipedia    # Wikipedia API wrapper
 
-from os.path import join, dirname
-from watson_developer_cloud import AlchemyVisionV1
-alchemy_vision = AlchemyVisionV1(api_key='a062455408f19f36521c167cca2e3aa1b9e5cd1c')
-
 
 # Factual API
 from factual import Factual
