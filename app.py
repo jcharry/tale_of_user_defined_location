@@ -24,15 +24,8 @@ application = Flask((__name__), static_url_path='')
 
 from api_requests import Api_Requests
 
-# import dataset
-
-# db = dataset.connect('sqlite:///:memory:')
-
-# table = db['sometable']
-# table.insert(dict(name='John Doe', age=37))
-# table.insert(dict(name='Jane Doe', age=34, gender='female'))
-
-# john = table.find_one(name='John Doe')
+import uuid
+import shelve
 
 @application.route('/')
 def hello():
@@ -40,9 +33,34 @@ def hello():
 
 @application.route('/save', methods=['POST'])
 def save():
+    shelf = shelve.open('db/saved_poems.db')
+
+    pageId = uuid.uuid4()
+    pageId = str(pageId)
+    poem = {
+        'title': request.json['title'],
+        'poem': request.json['poem'],
+        'id': pageId
+    }
+    shelf[pageId] = poem
     print request.json['title']
     print request.json['poem']
-    return json.dumps(200)
+    print pageId
+    shelf.close()
+    
+    return json.dumps('http://tale.town/poem?id='+pageId)
+
+@application.route('/poem', methods=['GET'])
+def getPoem():
+    shelf = shelve.open('db/saved_poems.db')
+    print request.args['id']
+    poem = shelf[request.args['id']]
+
+    shelf.close()
+    return render_template('poem.html', poem=poem)
+    return json.dumps(poem)
+
+    # poem = shelf[request['id']]
 
 @application.route('/location', methods=['GET'])
 def location():
@@ -66,8 +84,8 @@ def location():
         api_req.factualSearch()
         api_req.wikipediaSearch()
         api_req.getUNData()
-        print 'API RESULTS ====='
-        print json.dumps(api_req.results)
+        # print 'API RESULTS ====='
+        # print json.dumps(api_req.results)
         poem = compose.decodeData(jsonData=api_req.results, searchTerm=api_req.searchTerm)
     else:
         print 'DEV === TRUE!!!'

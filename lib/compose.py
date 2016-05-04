@@ -69,6 +69,8 @@ def decodeData(**kwargs):
     except:
         randomPlace = {}
 
+    print 'POEM STRUCTURE'
+    pprint(poemStructure)
     grammar = tracery.Grammar(poemStructure)
     grammar.add_modifiers(base_english)
     poemLines = grammar.flatten('#origin#')
@@ -80,11 +82,28 @@ def decodeData(**kwargs):
     }
     return poem
 
+
+def setStructureOrigin(status):
+    if status == 'clear':
+        poemStructure['origin'] = ['#clearStructure#']
+    elif status == 'rain':
+        poemStructure['origin'] = ['#rainyStructure#']
+    else:
+        poemStructure['origin'] = ['#catchAll#']
+
 def decodeWeatherData(data):
     status = Word(data['status'].lower())
     status = status.lemmatize()
-    status = status + 'y'
 
+    # Set origin
+    setStructureOrigin(status)
+
+    if status == 'clear':
+        pass
+    elif status == 'rain':
+        status = 'rainy'
+    elif status == 'cloud':
+        status = 'cloudy'
 
 
     poemStructure['weather_status'] = [status]
@@ -197,7 +216,7 @@ def decodeFactualData(data):
                         labelCounter[label] = 1
 
         for key in labelCounter.keys():
-            print key 
+            # print key 
             poemStructure['factual_label'].append(key.lower())
     else:
         poemStructure['factual_place'] = ['no place']
@@ -209,8 +228,8 @@ def decodeFactualData(data):
 def decodePhotos(data):
     # print 'PHOTO DATA'
     # pprint(data)
-    if len(data) == 0:
-        return {}
+    # if len(data) == 0:
+        # return {}
 
     # print '\n\n\n\n\n'
     allLabels = list()
@@ -222,13 +241,15 @@ def decodePhotos(data):
         for label in labels:
             allLabels.append(label['description'])
         allUrls.append(data[photo]['imgUrl'])
+    if len(allLabels) == 0:
+        allLabels = ['nothing']
     poemStructure['photo_label'] = allLabels
 
-    print 'ALL TEXT'
-    pprint(allText)
+    # print 'ALL TEXT'
+    # pprint(allText)
     # safeguard against no found text
     if len(allText) == 0:
-        allText = ['GIBBERISH']
+        allText = ['garbled']
     poemStructure['photo_text'] = allText
     res = {'text': allText, 'labels': allLabels, 'urls': allUrls}
     return res
@@ -271,7 +292,6 @@ def decodeWikipedia(data):
     print place_look_up
     for sentence in blob.sentences:
         if 'history' in sentence.string or 'historical' in sentence.string or 'historic' in sentence.string:
-            print type(sentence.string)
             if '===' in sentence.string:
                 s = sentence.string.replace('===', '')
                 history_sentences.append(s)
@@ -284,11 +304,17 @@ def decodeWikipedia(data):
             else:
                 place_sentences.append(sentence.string)
         allSentences.append(sentence.string)
-    print 'PLACE SENTENCES'
+    # print 'PLACE SENTENCES'
     # pprint(place_sentences)
     # print 'HISTORY SENTENCES'
     # pprint(history_sentences)
 
+    if len(history_sentences) == 0:
+        history_sentences = ['']
+    if len(place_sentences) == 0:
+        place_sentences = ['']
+    if len(allSentences) == 0:
+        allSentences = ['']
     poemStructure['wiki_history_sentence'] = history_sentences
     poemStructure['wiki_place_sentence'] = place_sentences
     poemStructure['wiki_sentence'] = allSentences
@@ -322,29 +348,35 @@ def decodeWikipedia(data):
 
 
 def decodeArticle(data):
+    articles = []
+    snippets = list()
+    headlines = list()
+    leads = list()
     if len(data) > 0:
-        articles = []
-        snippets = list()
-        headlines = list()
-        leads = list()
         for i in range(len(data)):
             article = data[i]
-            snippets.append(article.get('snippet'))
-            hline = article.get('headline', {}).get('main')
+            snippets.append(article.get('snippet', 'nothing found'))
+            hline = article.get('headline', {}).get('main', 'no news to speak of')
             if len(hline) < 60:
-                headlines.append(article.get('headline', {}).get('main'))
-            leads.append(article.get('lead_paragraph'))
+                headlines.append(article.get('headline', {}).get('main', 'no news to speak of'))
+            leads.append(article.get('lead_paragraph', 'nothing found'))
 
             articles.append({
-                'snippet': article.get('snippet'),
-                'headline': article.get('headline', {}).get('main'),
-                'lead': article.get('lead_paragraph')
+                'snippet': article.get('snippet', 'nothing found'),
+                'headline': article.get('headline', {}).get('main', 'no news to speak of'),
+                'lead': article.get('lead_paragraph', 'nothing found')
             })
     else:
         articles = [{'snippet': 'the times was not on it', 'headline': 'no headline to speak of', 'lead': 'no leads could be followed'}, {'snippet': 'the times was not on it', 'headline': 'no headline to speak of', 'lead': 'no leads could be followed'}]
 
-    print 'HEADLINES NYT'
+    # print 'HEADLINES NYT'
     # pprint(headlines)
+    if len(snippets) == 0:
+        snippets = ['none']
+    if len(headlines) == 0:
+        headlines = ['none']
+    if len(leads) ==0:
+        leads = ['none']
     poemStructure['article_snippet'] = snippets
     poemStructure['article_headline'] = headlines
     poemStructure['article_lead'] = leads

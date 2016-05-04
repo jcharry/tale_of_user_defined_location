@@ -111,22 +111,22 @@ poemStructure = {
     's3s1': ['#place#.'],
     's3s2': ['#wiki_noun_phrase.capitalize.s#, #wiki_noun_phrase#, #wiki_verb# in the #weather_status# air.'],
     's3s3': ['$#income_per_capita# a year buys a hell of a lot of #wiki_noun_phrase#.'],
-    's3s4': ['#factual_place_distance.capitalize# from here stands #factual_place#.'],
+    's3s4': ['#factual_place_distance# from here stands #factual_place#.'],
     's3s5': ['#photo_label.capitalize# and #photo_label# are commonplace there.'],
     's3s6': ['#temp_descriptor.capitalize# days, where #wind_descriptor#, provide endless opportunities for #wiki_verb.s# with #wiki_noun_phrase#.'],
     's3s7': ['#article_headline.capitalize#, what a world.'],
     's3s8': ['#wiki_history_sentence#'],
-    's3s9': ['hi'],
-    's3s10': ['hi'],
+    's3s9': [''],
+    's3s10': [''],
 
 
 
-    'structure1': ['#s1s1# #s1s2# #s1s3# #s1s4# #s1s5# #s1s6# #s1s7#'],
+    'clearStructure': ['#s1s1# #s1s2# #s1s3# #s1s4# #s1s5# #s1s6# #s1s7#'],
 
-    'structure2': ['#s2s1# #s2s2# #s2s3# #s2s4# #s2s5# #s2s6# #s2s7# #s2s8# #s2s9#'],
+    'rainyStructure': ['#s2s1# #s2s2# #s2s3# #s2s4# #s2s5# #s2s6# #s2s7# #s2s8# #s2s9#'],
 
-    'structure3': ['#s3s1# #s3s2# #s3s3# #s3s4# #s3s5# #s3s6# #s3s7# #s3s8# #s3s9#'],
+    'catchAll': ['#s3s1# #s3s2# #s3s3# #s3s4# #s3s5# #s3s6# #s3s7# #s3s8# #s3s9# #s3s10#'],
 
     'chooseStructure': ['#structure1#', '#structure2#'],
-    'origin': ['#structure3#']
+    'origin': []
 }

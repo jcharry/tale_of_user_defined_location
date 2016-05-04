@@ -96,7 +96,7 @@ button {
     font-family: futura;
     color: #CECECE;
 }
-#poemTitle span {
+span {
     color: #59D6FF;
 }
 #poem {
@@ -134,7 +134,7 @@ button {
     height: 100vh;
     display: none;
 }
-#overlayBg {
+.overlayBg {
     position: absolute;
     top:0;
     left:0;
@@ -142,6 +142,26 @@ button {
     height: 100vh;
     background-color: black;
     opacity: 0.5;
+}
+#saveOverlay {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    display: none;
+}
+#saveOverlay p {
+    z-index: 10;
+    color: white;
+    font-size: 14pt;
+}
+#saveOverlay button {
+    z-index: 10;
 }
 .loadingPara {
     position: absolute;
@@ -188,6 +208,46 @@ button {
 
 }
 
+#getPoemContainer {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 80vh;
+    padding-left: 20px;
+    padding-right: 20px;
+    color: white;
+    font-size: 14pt;
+}
+a {
+    position: relative;
+    color: #59D6FF;
+    text-decoration: none;
+}
+#poemBg{
+    filter: blur(15px);
+    -webkit-filter: blur(15px);
+    -moz-filter: blur(15px);
+    -o-filter: blur(15px);
+    min-height: 100%;
+    min-width: 1024px;
+
+    /* Set up proportionate scaling */
+    width: 100%;
+    height: auto;
+
+    /* Set up positioning */
+    position: fixed;
+    top: 0;
+    left: 0;
+}
+@media screen and (max-width: 1024px) { /* Specific to this particular image */
+    #poemBg {
+        left: 50%;
+        margin-left: -512px;   /* 50% */
+    }
+}
 
 .spinner {
   margin: 100px auto;

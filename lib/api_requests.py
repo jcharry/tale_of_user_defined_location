@@ -20,6 +20,11 @@ import httplib2
 import urllib   # Use to download and save photos when I know the photo url
 import wikipedia    # Wikipedia API wrapper
 
+from os.path import join, dirname
+from watson_developer_cloud import AlchemyVisionV1
+alchemy_vision = AlchemyVisionV1(api_key='a062455408f19f36521c167cca2e3aa1b9e5cd1c')
+
+
 # Factual API
 from factual import Factual
 from factual.utils import circle
@@ -176,12 +181,12 @@ class Api_Requests(object):
         nypl_results = {}   # return object - will fill up
 
         # Open prevent calling API's and use local data for testing
-        if self.dev == True:
-            with open('db/nyplAnalysis.json') as f:
-                nyplResults = json.load(f)
-                f.close()
-            self.results['photos'] = nyplResults
-            return 0
+        # if self.dev == True:
+            # with open('db/nyplAnalysis.json') as f:
+                # nyplResults = json.load(f)
+                # f.close()
+            # self.results['photos'] = nyplResults
+            # return 0
 
         # Construct NYPL URL
         url = 'http://api.repo.nypl.org/api/v1/items/search?q='+self.searchTerm+'&publicDomainOnly=true'
@@ -228,8 +233,12 @@ class Api_Requests(object):
 			print 'finding image'
                         urllib.urlretrieve(imgUrl, 'img/' + item['uuid'] + '.jpg')  # retrieve and save image by UUID
 			print 'got image'
+                        # with open('img/' + item['uuid'] + '.jpg', 'rb') as image_file:
+                            # print 'ALCHEMY API RESULTS'
+                            # print(json.dumps(alchemy_vision.get_image_keywords(image_file, knowledge_graph=True, force_show_all=True), indent=2))
+                            # alchemyResults = alchemy_vision.get_image_keywords(image_file, knowledge_graph=True, force_show_all=True)
+
                         analysis = self._cloudVision('img/' + item['uuid'] + '.jpg')  # Send the saved image to cloudVision
-			
 
                         # No guarentee to have any data back, have to check for nil values
                         try:
@@ -246,6 +255,7 @@ class Api_Requests(object):
                         photoAnalysis = {
                             'labels': labels,
                             'text': text,
+                            # 'alchemytext': t,
                             'landmarks': [],
                             'imgUrl': imgUrl,
                             'filepath': 'img/'+item['uuid']
@@ -359,6 +369,7 @@ class Api_Requests(object):
             # with open('db/NCDC_weather_sample.json') as f:
                 # weather = json.load(f)
                 # f.close()
+        shelf = shelve.open('db/undata.db')
 
         res = {}
         with open('db/gross_national_income_countries.json') as f:
@@ -368,14 +379,23 @@ class Api_Requests(object):
         country = self.location['country']
         for item in incomeCountries:
             if country in item['name']:
-                incomeCountry = item['name']
-                grossNationalIncomeUrl = "http://api.undata-api.org/WHO/WHO%20Data/Gross%20national%20income%20per%20capita/"+incomeCountry+"/records?app_id=d1c7ed02&app_key=0fe5699b7eacf2094df3d3aabe00c17a"
-                income = requests.get(grossNationalIncomeUrl)
-                print 'GOT INCOME DATA'
-                print income
-                incomeData = json.loads(income.text)
-                res['incomePerCapita'] = str(incomeData[0]['value'])
-                res['incomePerCapitaYear'] = str(incomeData[0]['year'])
+                print country+'-income'
+                if shelf.has_key(str(country+'-income')):
+                    print 'COUNTRY IN SHELF'
+
+                    res['incomePerCapita'] = shelf[str(country+'-income')]['income_per_capita']
+                    res['incomePerCapitaYear'] = shelf[str(country+'-income')]['income_per_capita_year']
+                else:
+                    print 'COUNTRY NOT IN SHELF'
+                    incomeCountry = item['name']
+                    grossNationalIncomeUrl = "http://api.undata-api.org/WHO/WHO%20Data/Gross%20national%20income%20per%20capita/"+incomeCountry+"/records?app_id=d1c7ed02&app_key=0fe5699b7eacf2094df3d3aabe00c17a"
+                    income = requests.get(grossNationalIncomeUrl)
+                    print 'GOT INCOME DATA'
+                    print income
+                    incomeData = json.loads(income.text)
+                    res['incomePerCapita'] = str(incomeData[0]['value'])
+                    res['incomePerCapitaYear'] = str(incomeData[0]['year'])
+                    shelf[str(country+'-income')] = {'income_per_capita': res['incomePerCapita'], 'income_per_capita_year': res['incomePerCapitaYear']}
                 break;
 
 
@@ -385,14 +405,20 @@ class Api_Requests(object):
 
         for item in lifeExpectancyCountries:
             if country in item['name']:
-                lifeExpectancyCountry = item['name']
-                lifeExpectancyUrl = "http://api.undata-api.org/WHO/WHO%20Data/Life%20expectancy%20at%20birth/"+lifeExpectancyCountry+"/records?app_id=d1c7ed02&app_key=0fe5699b7eacf2094df3d3aabe00c17a"
-                life = requests.get(lifeExpectancyUrl)
-                lifeData = json.loads(life.text)
-                for item in lifeData:
-                    if item['gender'] == 'Both sexes':
-                        res['lifeExpectancyAtBirth'] = str(item['value'])
-                        break;
+                if shelf.has_key(str(country+'-life')):
+                    print 'COUNTRY IN SHELF'
+                    res['lifeExpectancyAtBirth'] = shelf[str(country+'-life')]['lifeExpectancyAtBirth']
+                else:
+                    print 'COUNTRY NOT IN SHELF'
+                    lifeExpectancyCountry = item['name']
+                    lifeExpectancyUrl = "http://api.undata-api.org/WHO/WHO%20Data/Life%20expectancy%20at%20birth/"+lifeExpectancyCountry+"/records?app_id=d1c7ed02&app_key=0fe5699b7eacf2094df3d3aabe00c17a"
+                    life = requests.get(lifeExpectancyUrl)
+                    lifeData = json.loads(life.text)
+                    for item in lifeData:
+                        if item['gender'] == 'Both sexes':
+                            res['lifeExpectancyAtBirth'] = str(item['value'])
+                            shelf[str(country+'-life')] = {'lifeExpectancyAtBirth': res['lifeExpectancyAtBirth']}
+                            break;
                 break;
 
         with open('db/alcohol_countries.json') as f:
@@ -401,15 +427,23 @@ class Api_Requests(object):
 
         for item in alcoholCountries:
             if country in item['name']:
-                alcoholCountry = item['name']
-                alcoholUrl = "http://api.undata-api.org/WHO/WHO%20Data/Alcohol%20consumption%20amount%20adults%2015%20years%20or%20older/"+alcoholCountry+"/records?app_id=d1c7ed02&app_key=0fe5699b7eacf2094df3d3aabe00c17a"
-                # Alcohol consumption measured in liters per year
-                alcohol = requests.get(alcoholUrl)
-                alcoholData = json.loads(alcohol.text)
-                res['alcoholConsumption'] = str(alcoholData[0]['value'])
+                if shelf.has_key(str(country+'-alcohol')):
+                    print 'COUNTRY IN SHELF'
+                    res['alcoholConsumption'] = shelf[str(country+'-alcohol')]
+                else:
+                    print 'COUNTRY NOT IN SHELF'
+                    alcoholCountry = item['name']
+                    alcoholUrl = "http://api.undata-api.org/WHO/WHO%20Data/Alcohol%20consumption%20amount%20adults%2015%20years%20or%20older/"+alcoholCountry+"/records?app_id=d1c7ed02&app_key=0fe5699b7eacf2094df3d3aabe00c17a"
+                    # Alcohol consumption measured in liters per year
+                    alcohol = requests.get(alcoholUrl)
+                    alcoholData = json.loads(alcohol.text)
+                    res['alcoholConsumption'] = str(alcoholData[0]['value'])
+                    shelf[str(country+'-alcohol')] = res['alcoholConsumption']
                 break;
-
+        
+        shelf.close()
         self.results['UNData'] = res
+
 
 
 

@@ -23,7 +23,13 @@
             document.getElementById('map').classList.remove('blurred');
             document.getElementById('infopane').style.display = 'none';
         });
+        document.getElementById('closeSaveOverlay').addEventListener('click', function() {
+            document.getElementById('poemContainer').classList.remove('blurred');
+            document.getElementById('saveOverlay').style.display = 'none';
+            toggleOverlay();
+        });
         document.getElementById('savePoem').addEventListener('click', function() {
+            console.log('save poem!');
             $.ajax({
                 type: 'POST',
                 url: '/save',
@@ -32,6 +38,7 @@
                     poem: document.getElementById('poem').innerHTML}),
                 contentType: 'application/json;charset=UTF-8',
                 success: function(res) {
+                    showSaveOverlay(res);
                     console.log(res);
                 },
                 error: function(err) {
@@ -44,6 +51,16 @@
         document.getElementById('poemContainer').style.display = 'none';
 
     });
+
+    function showSaveOverlay(res) {
+        console.log(res);
+        var url = res.replace( new RegExp("\"", 'g'), '');
+        console.log(url);
+        document.getElementById('poemUrl').innerHTML = url;
+        document.getElementById('poemContainer').classList.add('blurred');
+        document.getElementById('saveOverlay').style.display = 'flex';
+    }
+
     // NYC LatLon - 40.7340314,-74.0146958
     var map = L.map('map').setView([40.7340314,-74.0146958], 13);
 
