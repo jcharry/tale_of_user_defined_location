@@ -20,7 +20,8 @@ from tracery.modifiers import base_english
 import math
 from template import poemStructure
 
-
+import logging
+LOGGER = logging.getLogger('gunicorn.error')
 
 
 # print grammar.flatten("#origin#") # prints, e.g., "Hello, world!"
@@ -31,24 +32,24 @@ searchTerm = ''
 # Run all child functions to 
 # parse data from various sources
 def decodeData(**kwargs):
-    print 'DECODING DATA'
+    LOGGER.info('DECODING DATA')
     for name, value in kwargs.items():
         if name == 'filepath':
-            print 'given a filepath'
+            LOGGER.info('given a filepath')
             with open(value) as f:
                 data = json.load(f)
                 f.close()
         if name == 'jsonData':
-            print 'given raw json data'
+            LOGGER.info('given raw json data')
             data = value
         if name == 'searchTerm':
             searchTerm = value
-    print searchTerm
+    LOGGER.info(searchTerm)
 
     poemStructure['place'] = [searchTerm]
 
     for item in data:
-        print item
+        LOGGER.info(item)
         if item == 'factual':
             factualData = decodeFactualData(data[item])
         elif item == 'weather':
@@ -69,12 +70,12 @@ def decodeData(**kwargs):
     except:
         randomPlace = {}
 
-    print 'POEM STRUCTURE'
-    pprint(poemStructure)
+    LOGGER.info('POEM STRUCTURE')
+    LOGGER.info(poemStructure)
     grammar = tracery.Grammar(poemStructure)
     grammar.add_modifiers(base_english)
     poemLines = grammar.flatten('#origin#')
-    print poemLines
+    LOGGER.info(poemLines)
     poem = {
         'title': data.get('place', 'nowhere'),
         'allLines': poemLines,
@@ -287,9 +288,9 @@ def decodeWikipedia(data):
     sentences = list()
     history_sentences = []
     place_sentences = []
-    print searchTerm
+    LOGGER.info(searchTerm)
     place_look_up = searchTerm.split()
-    print place_look_up
+    LOGGER.info(place_look_up)
     for sentence in blob.sentences:
         if 'history' in sentence.string or 'historical' in sentence.string or 'historic' in sentence.string:
             if '===' in sentence.string:

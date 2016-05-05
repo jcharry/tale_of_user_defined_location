@@ -11,6 +11,8 @@
 Server app for Tale of a <UserDefinedPlace>
 """
 
+
+
 import sys
 sys.path.append('./lib')
 
@@ -26,6 +28,12 @@ from api_requests import Api_Requests
 
 import uuid
 import shelve
+
+import logging
+
+LOGGER = logging.getLogger('gunicorn.error')
+LOGGER.info('my info')
+LOGGER.debug('debug message')
 
 @application.route('/')
 def hello():
@@ -65,6 +73,8 @@ def getPoem():
 @application.route('/location', methods=['GET'])
 def location():
     print 'hit location path'
+    #application.logger.debug('hit location path')
+    
     results = {}
     for item in request.args:
         results[item] = request.args.get(item)
@@ -114,4 +124,4 @@ What kind of data should I try to gather about a place?
 
 
 if __name__ == "__main__":
-    application.run(host='0.0.0.0', debug=True)
+    application.run(host='0.0.0.0')

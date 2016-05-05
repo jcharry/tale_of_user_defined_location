@@ -20,6 +20,8 @@ import httplib2
 import urllib   # Use to download and save photos when I know the photo url
 import wikipedia    # Wikipedia API wrapper
 
+import logging
+LOGGER = logging.getLogger('gunicorn.error')
 
 # Factual API
 from factual import Factual
@@ -38,7 +40,7 @@ class Api_Requests(object):
     def __init__(self, location):
         self.dev = True
         self.location = location
-        print self.location
+        LOGGER.info(self.location)
         self.searchTerm = None
         self.getSearchTerm()
         self.results = {'place': self.formatTitle(self.searchTerm)}
@@ -72,14 +74,14 @@ class Api_Requests(object):
             self.searchTerm = self.location['neighborhood'] + ' ' + self.location['city']
         if self.location['name'] != '':
             self.searchTerm = self.location['name']
-        print 'Search Term: ' + self.searchTerm
+        LOGGER.info('Search Term: ' + self.searchTerm)
 
 
 
     # Send photo file to cloud vision for analysis
     def _cloudVision(self, photo_file):
         '''Run a label request on a single image'''
-	print 'calling cloud vision'
+	LOGGER.info('calling cloud vision')
 
         API_DISCOVERY_FILE = 'https://vision.googleapis.com/$discovery/rest?version=v1'
         http = httplib2.Http()
@@ -87,11 +89,13 @@ class Api_Requests(object):
         credentials = GoogleCredentials.get_application_default().create_scoped(
           ['https://www.googleapis.com/auth/cloud-platform'])
         credentials.authorize(http)
+	LOGGER.info('credentials logged')
 
         service = build('vision', 'v1', http, discoveryServiceUrl=API_DISCOVERY_FILE)
         
         with open(photo_file, 'rb') as image:
             image_content = base64.b64encode(image.read())
+            LOGGER.info('image opened')
             service_request = service.images().annotate(
                 body={
                     'requests': [{
@@ -114,9 +118,11 @@ class Api_Requests(object):
                      }]
                 })
             response = service_request.execute()
+	    LOGGER.info(response)
             try:
                 label = response['responses'][0]['labelAnnotations'][0]['description']
             except KeyError:
+		LOGGER.debug('key error')
                 label = 'none'
         return response
 
@@ -124,7 +130,7 @@ class Api_Requests(object):
 
     # Get weather data from OpenWeatherMap
     def getWeather(self):
-        print 'Determing Weather'
+        LOGGER.info('Determing Weather')
         if self.dev == True:
             with open('db/weather_sample.json') as f:
                 weather = json.load(f)
@@ -142,7 +148,7 @@ class Api_Requests(object):
     '[q=search term&fq=filter-field:(filter-term)&additional-params=values]&api-key='+creds['NYTIMES_ARTICLE_SEARCH_API_KEY'])
     """
     def getHistoricalArticle(self):
-        print 'Finding history'
+        LOGGER.info('Finding history')
 
         if self.dev == True:
             with open('db/nytimes_sample.json') as f:
@@ -173,7 +179,7 @@ class Api_Requests(object):
     '''
     # http://api.repo.nypl.org/
     def getNyplPhotos(self):
-        print 'Decoding Digital Archives'
+        LOGGER.info('Decoding Digital Archives')
         nypl_results = {}   # return object - will fill up
 
         # Open prevent calling API's and use local data for testing
@@ -219,16 +225,16 @@ class Api_Requests(object):
 
             # Check if the item exists in shelf db
             if shelf.has_key(str(item['uuid'])):
-                print 'Object DOES exist in shelf'
+                LOGGER.info('Object DOES exist in shelf')
                 nypl_results[item['uuid']] = shelf[str(item['uuid'])]
             else:
-                print 'object DOES NOT exist in shelf'
+                LOGGER.info('object DOES NOT exist in shelf')
                 # If we dont' already have an entry for it...
                 for imgUrl in item['imageLinks']['imageLink']:                  # Each item has links to various resolution images, loop through these links
                     if imgUrl.find('t=w') != -1:                                # Get image with resolution 'w' - points to 760px resolution
-			print 'finding image'
+			LOGGER.info('finding image')
                         urllib.urlretrieve(imgUrl, 'img/' + item['uuid'] + '.jpg')  # retrieve and save image by UUID
-			print 'got image'
+			LOGGER.info('got image')
                         # with open('img/' + item['uuid'] + '.jpg', 'rb') as image_file:
                             # print 'ALCHEMY API RESULTS'
                             # print(json.dumps(alchemy_vision.get_image_keywords(image_file, knowledge_graph=True, force_show_all=True), indent=2))
@@ -240,12 +246,12 @@ class Api_Requests(object):
                         try:
                             text = analysis['responses'][0]['textAnnotations'][0]['description']
                         except:
-                            print 'no text found'
+                            LOGGER.info('no text found')
                             text = ''
                         try:
                             labels = analysis['responses'][0]['labelAnnotations']
                         except:
-                            print 'no labels found'
+                            LOGGER.info('no labels found')
                             labels = []
                         # Construct response object - analysis from cloudVision
                         photoAnalysis = {
@@ -262,15 +268,15 @@ class Api_Requests(object):
                         # Add it to return object
                         nypl_results[item['uuid']] = photoAnalysis
         # Close the shelf connection
-	print 'done'
+	LOGGER.info('done')
         shelf.close()
         self.results['photos'] = nypl_results
     
     # Factual API - http://developer.factual.com/data-docs/
     def factualSearch(self):
-        print 'Assessing nearby culture'
+        LOGGER.info('Assessing nearby culture')
         if self.dev == True:
-            print 'Dev is TRUE'
+            LOGGER.info('Dev is TRUE')
             with open('db/factual_sample.json') as f:
                 factual = json.load(f)
                 f.close()
@@ -307,7 +313,7 @@ class Api_Requests(object):
         self.results['factual'] = res
 
     def wikipediaSearch(self):
-        print 'Querying Wikipedia'
+        LOGGER.info('Querying Wikipedia')
         neighborhood = False
         if self.location['neighborhood'] != '':
             neighborhood = True
@@ -317,10 +323,10 @@ class Api_Requests(object):
         elif self.location['place_name'] != '':
             searchTerm = self.location['place_name']
 
-        print 'WIKI SEARCH TERM: ' + searchTerm
+        LOGGER.info('WIKI SEARCH TERM: ' + searchTerm)
         wikiPages = list()
         try:
-            print 'trying first wiki query'
+            LOGGER.info('trying first wiki query')
             results = wikipedia.search(searchTerm)
             if len(results) != 0:
                 if len(results) >= 3:
@@ -330,14 +336,16 @@ class Api_Requests(object):
                         page = wikipedia.page(result)
                         wikiPages.append(page.content)
                     except wikipedia.exceptions.DisambiguationError as e:
-                        print 'Disambiguation Error'
-                        print e
+			pass
+                        #print 'Disambiguation Error'
+                        #print e
                     except wikipedia.exceptions.PageError as e:
-                        print 'Page Error'
-                        print e
+                        #print 'Page Error'
+                        #print e
+			pass
         except wikipedia.exceptions.DisambiguationError as e:
-            print 'DISAMBIGUATION ERROR'
-            print e.options
+            #print 'DISAMBIGUATION ERROR'
+            #print e.options
             if len(e.options) !=0:
                 if len(e.options) >= 3:
                     e.options = e.options[:3]
@@ -346,11 +354,12 @@ class Api_Requests(object):
                         page = wikipedia.page(opt)
                         wikiPages.append(page.content)
                     except wikipedia.exceptions.DisambiguationError as e:
-                        print 'Disambiguation Error'
-                        print e
+                        #print 'Disambiguation Error'
+                        #print e
+			pass
                     except wikipedia.exceptions.PageError as e:
-                        print 'Page Error'
-                        print e
+                        #print 'Page Error'
+                        #print e
                         pass
 
         allText = ''
@@ -375,19 +384,19 @@ class Api_Requests(object):
         country = self.location['country']
         for item in incomeCountries:
             if country in item['name']:
-                print country+'-income'
+                LOGGER.info(country+'-income')
                 if shelf.has_key(str(country+'-income')):
-                    print 'COUNTRY IN SHELF'
+                    LOGGER.info('COUNTRY IN SHELF')
 
                     res['incomePerCapita'] = shelf[str(country+'-income')]['income_per_capita']
                     res['incomePerCapitaYear'] = shelf[str(country+'-income')]['income_per_capita_year']
                 else:
-                    print 'COUNTRY NOT IN SHELF'
+                    LOGGER.info('COUNTRY NOT IN SHELF')
                     incomeCountry = item['name']
                     grossNationalIncomeUrl = "http://api.undata-api.org/WHO/WHO%20Data/Gross%20national%20income%20per%20capita/"+incomeCountry+"/records?app_id=d1c7ed02&app_key=0fe5699b7eacf2094df3d3aabe00c17a"
                     income = requests.get(grossNationalIncomeUrl)
-                    print 'GOT INCOME DATA'
-                    print income
+                    LOGGER.info('GOT INCOME DATA')
+                    LOGGER.info(income)
                     incomeData = json.loads(income.text)
                     res['incomePerCapita'] = str(incomeData[0]['value'])
                     res['incomePerCapitaYear'] = str(incomeData[0]['year'])
@@ -402,10 +411,10 @@ class Api_Requests(object):
         for item in lifeExpectancyCountries:
             if country in item['name']:
                 if shelf.has_key(str(country+'-life')):
-                    print 'COUNTRY IN SHELF'
+                    LOGGER.info('COUNTRY IN SHELF')
                     res['lifeExpectancyAtBirth'] = shelf[str(country+'-life')]['lifeExpectancyAtBirth']
                 else:
-                    print 'COUNTRY NOT IN SHELF'
+                    LOGGER.info('COUNTRY NOT IN SHELF')
                     lifeExpectancyCountry = item['name']
                     lifeExpectancyUrl = "http://api.undata-api.org/WHO/WHO%20Data/Life%20expectancy%20at%20birth/"+lifeExpectancyCountry+"/records?app_id=d1c7ed02&app_key=0fe5699b7eacf2094df3d3aabe00c17a"
                     life = requests.get(lifeExpectancyUrl)
@@ -424,10 +433,10 @@ class Api_Requests(object):
         for item in alcoholCountries:
             if country in item['name']:
                 if shelf.has_key(str(country+'-alcohol')):
-                    print 'COUNTRY IN SHELF'
+                    LOGGER.info('COUNTRY IN SHELF')
                     res['alcoholConsumption'] = shelf[str(country+'-alcohol')]
                 else:
-                    print 'COUNTRY NOT IN SHELF'
+                    LOGGER.info('COUNTRY NOT IN SHELF')
                     alcoholCountry = item['name']
                     alcoholUrl = "http://api.undata-api.org/WHO/WHO%20Data/Alcohol%20consumption%20amount%20adults%2015%20years%20or%20older/"+alcoholCountry+"/records?app_id=d1c7ed02&app_key=0fe5699b7eacf2094df3d3aabe00c17a"
                     # Alcohol consumption measured in liters per year
