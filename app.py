@@ -31,8 +31,17 @@ import shelve
 
 import logging
 
-LOGGER = logging.getLogger('gunicorn.error')
+if __name__ == '__main__':
+    LOGGER = logging.getLogger()
+    LOGGER.setLevel(logging.DEBUG)
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    LOGGER.addHandler(ch)
+else:
+    LOGGER = logging.getLogger('gunicorn.error')
 
+LOGGER.info('APP STARTING')
 @application.route('/')
 def hello():
     return render_template('index.html')

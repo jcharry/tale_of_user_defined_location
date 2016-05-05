@@ -21,7 +21,17 @@ import urllib   # Use to download and save photos when I know the photo url
 import wikipedia    # Wikipedia API wrapper
 
 import logging
-LOGGER = logging.getLogger('gunicorn.error')
+if __name__ == '__main__':
+    LOGGER = logging.getLogger()
+    LOGGER.setLevel(logging.DEBUG)
+    ch = logging.StreamHandler(sys.stdout)
+    ch.setLevel(logging.DEBUG)
+    formatter = logging.Formatter('%(asctime)s - %(name)s - %(levelname)s - %(message)s')
+    LOGGER.addHandler(ch)
+    LOGGER.info(__name__)
+else:
+    LOGGER = logging.getLogger('gunicorn.error')
+    LOGGER.info(__name__)
 
 # Factual API
 from factual import Factual
