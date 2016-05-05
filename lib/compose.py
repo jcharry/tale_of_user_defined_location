@@ -70,8 +70,8 @@ def decodeData(**kwargs):
     except:
         randomPlace = {}
 
-    LOGGER.info('POEM STRUCTURE')
-    LOGGER.info(poemStructure)
+    #LOGGER.info('POEM STRUCTURE')
+    #LOGGER.info(poemStructure)
     grammar = tracery.Grammar(poemStructure)
     grammar.add_modifiers(base_english)
     poemLines = grammar.flatten('#origin#')
@@ -288,9 +288,9 @@ def decodeWikipedia(data):
     sentences = list()
     history_sentences = []
     place_sentences = []
-    LOGGER.info(searchTerm)
+    #LOGGER.info(searchTerm)
     place_look_up = searchTerm.split()
-    LOGGER.info(place_look_up)
+    #LOGGER.info(place_look_up)
     for sentence in blob.sentences:
         if 'history' in sentence.string or 'historical' in sentence.string or 'historic' in sentence.string:
             if '===' in sentence.string:

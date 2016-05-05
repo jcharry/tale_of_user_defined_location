@@ -118,11 +118,11 @@ class Api_Requests(object):
                      }]
                 })
             response = service_request.execute()
-	    LOGGER.info(response)
+	    #LOGGER.info(response)
             try:
                 label = response['responses'][0]['labelAnnotations'][0]['description']
             except KeyError:
-		LOGGER.debug('key error')
+		#LOGGER.debug('key error')
                 label = 'none'
         return response
 
@@ -268,7 +268,7 @@ class Api_Requests(object):
                         # Add it to return object
                         nypl_results[item['uuid']] = photoAnalysis
         # Close the shelf connection
-	LOGGER.info('done')
+	LOGGER.info('done analyzing images')
         shelf.close()
         self.results['photos'] = nypl_results
     
@@ -396,11 +396,15 @@ class Api_Requests(object):
                     grossNationalIncomeUrl = "http://api.undata-api.org/WHO/WHO%20Data/Gross%20national%20income%20per%20capita/"+incomeCountry+"/records?app_id=d1c7ed02&app_key=0fe5699b7eacf2094df3d3aabe00c17a"
                     income = requests.get(grossNationalIncomeUrl)
                     LOGGER.info('GOT INCOME DATA')
-                    LOGGER.info(income)
-                    incomeData = json.loads(income.text)
-                    res['incomePerCapita'] = str(incomeData[0]['value'])
-                    res['incomePerCapitaYear'] = str(incomeData[0]['year'])
-                    shelf[str(country+'-income')] = {'income_per_capita': res['incomePerCapita'], 'income_per_capita_year': res['incomePerCapitaYear']}
+                    LOGGER.info(income.status_code)
+		    if income.status_code != 503:
+                        incomeData = json.loads(income.text)
+                        res['incomePerCapita'] = str(incomeData[0]['value'])
+                        res['incomePerCapitaYear'] = str(incomeData[0]['year'])
+                        shelf[str(country+'-income')] = {'income_per_capita': res['incomePerCapita'], 'income_per_capita_year': res['incomePerCapitaYear']}
+   	            else:
+                        res['incomePerCapita'] = 'unknown' 
+                        res['incomePerCapitaYear'] = 'no year' 
                 break;
 
 
@@ -418,12 +422,16 @@ class Api_Requests(object):
                     lifeExpectancyCountry = item['name']
                     lifeExpectancyUrl = "http://api.undata-api.org/WHO/WHO%20Data/Life%20expectancy%20at%20birth/"+lifeExpectancyCountry+"/records?app_id=d1c7ed02&app_key=0fe5699b7eacf2094df3d3aabe00c17a"
                     life = requests.get(lifeExpectancyUrl)
-                    lifeData = json.loads(life.text)
-                    for item in lifeData:
-                        if item['gender'] == 'Both sexes':
-                            res['lifeExpectancyAtBirth'] = str(item['value'])
-                            shelf[str(country+'-life')] = {'lifeExpectancyAtBirth': res['lifeExpectancyAtBirth']}
-                            break;
+	            LOGGER.debug(life.status_code)
+		    if life.status_code != 503:
+                        lifeData = json.loads(life.text)
+                        for item in lifeData:
+                            if item['gender'] == 'Both sexes':
+                                res['lifeExpectancyAtBirth'] = str(item['value'])
+                                shelf[str(country+'-life')] = {'lifeExpectancyAtBirth': res['lifeExpectancyAtBirth']}
+                                break;
+		    else:
+		        res['lifeExpectancyAtBirth'] = 'unknown'    
                 break;
 
         with open('db/alcohol_countries.json') as f:
@@ -441,9 +449,13 @@ class Api_Requests(object):
                     alcoholUrl = "http://api.undata-api.org/WHO/WHO%20Data/Alcohol%20consumption%20amount%20adults%2015%20years%20or%20older/"+alcoholCountry+"/records?app_id=d1c7ed02&app_key=0fe5699b7eacf2094df3d3aabe00c17a"
                     # Alcohol consumption measured in liters per year
                     alcohol = requests.get(alcoholUrl)
-                    alcoholData = json.loads(alcohol.text)
-                    res['alcoholConsumption'] = str(alcoholData[0]['value'])
-                    shelf[str(country+'-alcohol')] = res['alcoholConsumption']
+		    LOGGER.info(alcohol.status_code)
+                    if alcohol.status_code != 503:
+                        alcoholData = json.loads(alcohol.text)
+                        res['alcoholConsumption'] = str(alcoholData[0]['value'])
+                        shelf[str(country+'-alcohol')] = res['alcoholConsumption']
+                    else:
+                        res['alcoholConsumption'] = 'unknown' 
                 break;
         
         shelf.close()

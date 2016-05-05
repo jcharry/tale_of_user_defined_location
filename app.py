@@ -32,8 +32,6 @@ import shelve
 import logging
 
 LOGGER = logging.getLogger('gunicorn.error')
-LOGGER.info('my info')
-LOGGER.debug('debug message')
 
 @application.route('/')
 def hello():
