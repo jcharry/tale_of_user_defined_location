@@ -6,36 +6,6 @@
 #
 # Distributed under terms of the MIT license.
 
-"""
-
-"""
-# Example Tracery structure
-structure = {
-    'name': ['Arjun', 'Yuuma', 'Darcy', 'Mia','Chiaki'],
-    'animal': ['unicorn', 'raven', 'sparrow', 'scorpion', 'coyote'],
-    'occupationBase': ['wizard', 'witch', 'detective'],
-    'occupationMod': ['occult ', 'space ', 'professional '],
-    'strange': ['mysterious', 'portentous', 'enchanting', 'strange'],
-    'tale': ['story', 'saga', 'tale'],
-    'occupation': ['#occupationMod##occupationBase#'],
-    'mood': ['vexed', 'indignant', 'impassioned'],
-    'setPronouns': [
-        '[heroThey:they][heroThem:them][heroTheir:their][heroTheirs:theirs]',
-        '[heroThey:she][heroThem:her][heroTheir:her][heroTheirs:hers]',
-        '[heroThey:he][heroThem:him][heroTheir:his][heroTheirs:his]'
-        ],
-    'setSailForAdventure': ['set sail for adventure', 'left #heroTheir# home', 'set out for adventure', 'went to seek #heroTheir# forture'],
-    'setCharacter': ['[#setPronouns#][hero:#name#][heroJob:#occupation#]'],
-    'openBook': [
-        'An old #occupation# told #hero# a story. Listen well, she said to #hero#, to this #strange# #tale#. #origin#', 
-        '#hero# went home.', 
-        '#hero# found an ancient book and opened it. as #hero# read, the book told #strange.a# #tale#: #origin#'],
-    'story': ['#hero# the #heroJob# #setSailForAdventure#. #openBook#'],
-    'origin': ['Once upon a time, #[#setCharacter#]story#']
-}
-
-
-
 poemStructure = {
     'wiki_sentence': [],
     'wiki_verb': [],
@@ -72,14 +42,12 @@ poemStructure = {
     ],
     's1s3': [
         'On a clear day, when #wind_descriptor#, you can see #photo_label.a#.',
-        ''
     ],
     's1s4': [
         'With #actual_temp# degree days like these, what\'s more fun than visiting #factual_place#? '
     ],
     's1s5': [
         'And with a life expectancy of #life_expectancy#, why not #wiki_verb# with #wiki_noun_phrase#?'
-        # 'The news reads #article_headline#.'
     ],
     's1s6': [
         'Residents #wiki_verb# #temp_descriptor# days and #temp_descriptor# nights, to earn their $#income_per_capita# yearly salaries.',
@@ -91,7 +59,6 @@ poemStructure = {
         'Where the #photo_label.s# and #wiki_noun_phrase# roam.',
         'Over there - a #wiki_adj# #wiki_noun_phrase#, #wiki_verb#.'
     ],
-
 
     's2s1': [ 
         'Welcome, kind traveler, to #place#.',
@@ -107,7 +74,6 @@ poemStructure = {
     's2s8': ['Then while #wind_descriptor#, we can watch the locals #wiki_verb# at #factual_place#.'],
     's2s9': ['It\'ll be a hell of a time'],
 
-
     's3s1': ['#place#.'],
     's3s2': ['#wiki_noun_phrase.capitalize.s#, #wiki_noun_phrase#, #wiki_verb# in the #weather_status# air.'],
     's3s3': ['$#income_per_capita# a year buys a hell of a lot of #wiki_noun_phrase#.'],
@@ -116,16 +82,12 @@ poemStructure = {
     's3s6': ['#temp_descriptor.capitalize# days, where #wind_descriptor#, provide endless opportunities for #wiki_verb.s# with #wiki_noun_phrase#.'],
     's3s7': ['#article_headline.capitalize#, what a world.'],
     's3s8': ['#wiki_history_sentence#'],
-    's3s9': [''],
-    's3s10': [''],
-
-
 
     'clearStructure': ['#s1s1# #s1s2# #s1s3# #s1s4# #s1s5# #s1s6# #s1s7#'],
 
     'rainyStructure': ['#s2s1# #s2s2# #s2s3# #s2s4# #s2s5# #s2s6# #s2s7# #s2s8# #s2s9#'],
 
-    'catchAll': ['#s3s1# #s3s2# #s3s3# #s3s4# #s3s5# #s3s6# #s3s7# #s3s8# #s3s9# #s3s10#'],
+    'catchAll': ['#s3s1# #s3s2# #s3s3# #s3s4# #s3s5# #s3s6# #s3s7# #s3s8#'],
 
     'chooseStructure': ['#structure1#', '#structure2#'],
     'origin': []

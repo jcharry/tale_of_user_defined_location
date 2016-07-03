@@ -11,8 +11,6 @@
 Server app for Tale of a <UserDefinedPlace>
 """
 
-
-
 import sys
 sys.path.append('./lib')
 
